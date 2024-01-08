@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.portfolio.piohouse.auth.security.PasswordEncoder;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
     private static final String MESSAGE_EXCEPTION = "User with username not found!";
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -41,7 +43,7 @@ public class UserService implements UserDetailsService {
         if (isUsersExits){
             throw new IllegalStateException(MESSAGE_EXCEPTION);
         }
-        String password = user.getPassword();
+        String password =passwordEncoder.bCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(password);
         userRepository.save(user);
         return " ";
