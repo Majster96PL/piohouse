@@ -28,6 +28,9 @@ public class User {
     @NotBlank(message = "Lastname required!")
     @Size(max = 20)
     private String lastname;
+    @NotBlank(message = "Username required!")
+    @Size(max = 60)
+    private String username;
     @NotBlank(message = "Email required!")
     @Size(max = 60)
     private String email;
