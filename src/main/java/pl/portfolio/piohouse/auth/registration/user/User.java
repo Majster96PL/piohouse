@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import pl.portfolio.piohouse.auth.registration.role.Role;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -31,4 +34,11 @@ public class User {
     @NotBlank(message = "Password required!")
     @Size(max = 120)
     private String password;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
 }
