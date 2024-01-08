@@ -36,7 +36,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    private String getNewUser(User user){
+    public String getNewUser(User user){
         boolean isUsersExits = userRepository
                 .findUserByUsername(user.getUsername())
                 .isPresent();
