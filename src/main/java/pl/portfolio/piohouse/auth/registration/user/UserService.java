@@ -1,5 +1,6 @@
 package pl.portfolio.piohouse.auth.registration.user;
 
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -30,6 +32,18 @@ public class UserService implements UserDetailsService {
                             .collect(Collectors.toSet())
             );
         }
+    }
 
+    private String getNewUser(User user){
+        boolean isUsersExits = userRepository
+                .findUserByUsername(user.getUsername())
+                .isPresent();
+        if (isUsersExits){
+            throw new IllegalStateException(MESSAGE_EXCEPTION);
+        }
+        String password = user.getPassword();
+        user.setPassword(password);
+        userRepository.save(user);
+        return " ";
     }
 }
