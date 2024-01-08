@@ -1,4 +1,4 @@
-package pl.portfolio.piohouse.auth.registration;
+package pl.portfolio.piohouse.auth.registration.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
